@@ -1,5 +1,5 @@
 # 风格注册清单。新增风格必须先在此登记，才能被项目选择。
-catalog_version: "1.0"
+catalog_version: "1.1"
 config_schema_version: "1.0"
 notes:
   - 当前唯一 verified-sample 是 black-neon-talking-head。
@@ -7,7 +7,7 @@ notes:
 
 styles:
   - id: black-neon-talking-head
-    version: "1.0.0"
+    version: "1.1.0"
     status: verified-sample
     path: black-neon-talking-head/style.yaml
     summary: 近黑点阵底、荧光绿描边人物窗与句级白字幕。唯一已验证样片风格，不是所有项目的默认风格。

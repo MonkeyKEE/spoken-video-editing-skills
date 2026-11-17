@@ -2,8 +2,8 @@
 
 - 项目：口播剪辑与可扩展视觉风格包（文档 + YAML 规范，不附带可执行渲染脚本）
 - 许可：MIT License，Copyright (c) 2026 MonkeyKEE
-- 配置模式：`config_schema_version: "1.0"`
-- 清单生成时间：2026-11-17 13:16 CST（Asia/Shanghai）
+- 配置模式：`config_schema_version: "1.0"`；可选扩展契约1.1；黑绿样式1.1.0
+- 清单生成时间：2026-11-17 23:02 CST（Asia/Shanghai）
 
 ## 仓库文件
 
@@ -14,7 +14,9 @@
 - `CHANGELOG.md` — 版本与迁移说明
 - `contracts/config-contract.yaml` — 输入输出契约、合并优先级、必填项与报错规则
 - `config/optional-presets.yaml` — 可选起始预设
-- `examples/project.example.yaml` — 项目配置示例
+- `examples/project.example.yaml` — 默认按场景计划的项目配置示例
+- `examples/full-bleed-clean.project.example.yaml` — 明确选择后才使用的可选满屏/干净偏好项目覆盖
+- `examples/style-profile.example.yaml` — 旧结构兼容参考，不作为新项目入口
 - `styles/catalog.yaml` — 风格注册清单
 - `styles/README.md` — 新增风格的方法
 - `styles/black-neon-talking-head/style.yaml` — 唯一已验证样片风格
@@ -40,3 +42,10 @@
 - 换行均为 LF，无 UTF-8 BOM。
 
 各内容文件的 SHA256 见 `CHECKSUMS.sha256`。
+
+## 本次规范变更验证范围
+
+- 两份通用技能正文与获确认正文逐字节匹配，保留原frontmatter；不包含具体项目身份、绝对路径或素材。
+- YAML解析、样式版本/目录一致性、示例合并、可选字段枚举/条件约束、原锁定键、正文/本地链接及校验和检查；正反例由包外临时检查脚本执行，不把该脚本宣传为仓库已有自动验证器。
+- 验证纯视觉修订可复用未变终速字幕的语义，不降低首次/改变干声后重新对齐要求；满屏和干净偏好都不成为全局强制。
+- 未为这次文档/YAML变更重新做视频端到端渲染或新审片，也未对所有平台、系统或运行器作兼容保证。
