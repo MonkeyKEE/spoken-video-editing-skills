@@ -14,9 +14,10 @@ style:
   # 示例选用当前唯一已验证样片风格。可以改成你注册的其他 draft/confirmed 风格，
   # 但不能选择 _blank-template，也不能把未验证风格写成 verified-sample。
   id: "black-neon-talking-head"
-  version: "1.0.0"
+  version: "1.1.0"
   confirmed_for_this_project: false
   overrides: {}
+  # 如项目明确选择满屏+干净偏好，另见 full-bleed-clean.project.example.yaml；此处不自动启用。
   # overrides 只能覆盖风格中的可配置视觉/声音参数，不能削弱 contracts 中的安全底线。
 
 edit:

@@ -1,6 +1,6 @@
 # 配置契约：输入输出、合并优先级、必填项与报错。
 # 这是规范文档，不是渲染器。修改规则后应同步更新技能正文与 examples。
-contract_version: "1.0"
+contract_version: "1.1"
 config_schema_version: "1.0"
 
 merge:
@@ -11,6 +11,11 @@ merge:
     - style_pack
     - project_overrides
   locked_after_merge: safety_baseline
+  normalization: >
+    style_pack 的可配置正文及 style.overrides 合并到有效配置 packaging；
+    id/version/compatible_config_versions/status 等注册元数据不接受项目覆盖。
+    项目 qa/sync/privacy 保持各自命名空间。缺省锁定键采用 safety_baseline 的 required_value，
+    任一输入若显式冲突即报错，不用后层覆盖来掩盖。未使用新可选字段的 1.0 项目仍有效。
 
 safety_baseline:
   description: 风格包与项目覆盖都不能削弱这些规则。
@@ -37,6 +42,71 @@ safety_baseline:
       required_value: true
     - key: privacy.no_absolute_or_private_paths_in_shared_files
       required_value: true
+
+# 1.1 是可选扩展契约；项目 schema 仍为 1.0，不改变已有必填项。
+optional_packaging_fields:
+  broll.presentation:
+    enum: [scene-plan, windowed, full-bleed]
+    default: scene-plan
+  broll.fit:
+    enum: [cover, contain]
+    default: cover
+  broll.crop_policy:
+    enum: [per-shot-subject-anchor]
+    default: per-shot-subject-anchor
+  broll.speaker_overlay:
+    enum: [scene-plan, small-circle, none]
+    default: scene-plan
+  broll.background:
+    enum: [scene-plan, source-only]
+    default: scene-plan
+  broll.padding:
+    type: boolean
+    default: false
+  disclosure.policy:
+    enum: [risk-based]
+    default: risk-based
+  disclosure.clean_preference:
+    type: boolean
+    default: false
+  disclosure.provenance_manifest_required:
+    enum: [true]
+    default: true
+
+conditional_validation:
+  full_bleed:
+    when: "packaging.broll.presentation == full-bleed"
+    require:
+      packaging.broll.fit: cover
+      packaging.broll.background: source-only
+      packaging.broll.padding: false
+    checks:
+      - 每镜等比主体锚定覆盖整个目标画布，无素材窗框、底纹、拉伸或模糊补边。
+      - 记录源宽高、归一化裁切框/锚点、缩放与取舍；保不住核心活动时换素材或取得构图变更确认。
+  disclosure:
+    policy: >
+      clean_preference 只是偏好，不是关闭必要披露的开关。按误导风险、法律/平台要求决定上屏说明；
+      若不说明会实质误导，换素材、改表达或保留必要说明，不能只藏入文档。
+      不默认给所有通用库存/抽象图形加标签；正常字幕、标题、章节、关键词和流程信息不属于待清理说明。
+    manifest_when_assets_used:
+      - source_id_or_url
+      - license_evidence_and_limitations
+      - nature_and_permitted_use
+      - source_interval_and_output_frames
+      - crop_and_disclosure_decision
+    factual_limit: 不冒充用户经历、活动、官方界面或客户成果，不将个人概念数字包装成已证实统计。
+  visual_only_revision:
+    preserve: [base_video, final_dry_voice, sentence_subtitles, segments, frame_map]
+    checks:
+      - 用音轨基本流或解码样本、字幕及时间轴一致性检查佐证未改声音/文案/时间轴；不要求整文件hash相同。
+      - 仅在这些输入未变时复用已有终速字幕，不再次ASR或变速；改变音频链、切点、语速时重做受影响检查。
+      - sync.retranscribe_on_final_dry_voice 仍为true，指首次建立或改变终速干声，不强迫纯视觉修订重复转写。
+      - 新版本保留旧版；失效并刷新所有受影响缓存块。
+  current_version_review:
+    required_for_passed: [reviewed_artifact_checksum, current_version, full_timeline_scope, reviewed_at, observations, uncompleted_checks]
+    checks:
+      - 对最终成片或完整同时间轴代理完整动态直接审片，记录实际对象/校验值；旧版PASS不能继承。
+      - 信号/像素诊断与审片观察分开，截图/ASR/哈希不代替视听，不保证完美逐帧。
 
 required_project_fields:
   - config_schema_version
@@ -109,6 +179,7 @@ io:
       - packaged_master_or_preview
       - qa_notes
       - review_status
+    optional_outputs: [asset_manifest, revision_checks, review_evidence]
   review_status_values:
     - passed
     - pending-preview
@@ -144,6 +215,21 @@ errors:
     when: 进入包装时没有内容剪辑计划
   - code: REVIEW_SKIPPED
     when: 未做直接视听审片却把状态写成 passed，或声称已看
+
+  - code: STYLE_VERSION_MISMATCH
+    when: 项目显式style.version与实际加载样式版本不同，不得静默忽略钉扎
+  - code: INVALID_OPTIONAL_FIELD
+    when: 新可选字段的值或类型不在声明范围，不能按拼写错误静默回退
+  - code: FULL_BLEED_CONFLICT
+    when: 明确要求满屏却配置窗口/补边/非cover或输出不覆盖整个目标画布
+  - code: MISSING_ASSET_EVIDENCE
+    when: 使用素材却缺来源、许可依据/局限、性质、源区间或最终帧记录
+  - code: DISCLOSURE_CONFLICT
+    when: 干净偏好被用于豁免必要披露，或素材/图表造成未经消歧的事实误导
+  - code: REVISION_INVARIANT_BROKEN
+    when: 声称纯视觉修订却改变声音、字幕、映射或重复变速而未重建相应对齐
+  - code: STALE_REVIEW
+    when: 新终版沿用旧版PASS或缺少当前完整动态直接审片证据
 
 on_error:
   action: 停止出片交付

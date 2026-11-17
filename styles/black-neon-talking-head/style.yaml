@@ -1,7 +1,7 @@
 # 唯一已验证样片风格。下列数值是该风格的可配置起点，
 # 仍须按当次人脸、标题和目标手机安全区重测，不是所有项目的硬规范。
 id: black-neon-talking-head
-version: "1.0.0"
+version: "1.1.0"
 compatible_config_versions:
   min: "1.0"
   max_exclusive: "2.0"
@@ -144,3 +144,24 @@ assets:
     license: "must-be-supplied-by-project"
     source: "No font file or music bed is included. The project must use a licensed font family and, if needed, a licensed or original instrumental."
     usage: "subtitles, titles, optional bed music"
+
+# 可选镜头语言，不改变各品牌/项目默认；满屏仅在明确选择时执行。
+broll:
+  presentation: scene-plan
+  fit: cover
+  crop_policy: per-shot-subject-anchor
+  speaker_overlay: scene-plan
+  background: scene-plan
+  padding: false
+editorial_options:
+  available_presentations: [windowed, full-bleed]
+  full_bleed_notes: >
+    满屏分支用等比源素材覆盖整个目标画布，不透出点阵、不画素材窗框、不拉伸或模糊补边；
+    可保留小圆口播人物、降低安全区主标题与白色句字幕。每镜裁切及头像避让须重测，非固定坐标。
+  layouts: [large-presenter, small-circle-broll, small-circle-information-mg, center-circle-emphasis]
+  graphics: [numbered-steps, horizontal-relations, feedback-cycle, grouped-needs]
+  selection: 内容与直接参考比较决定，不复制配色了事，不设镜头数/固定间隔，不反复套同一树图。
+disclosure:
+  policy: risk-based
+  clean_preference: false
+  provenance_manifest_required: true
