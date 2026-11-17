@@ -1,0 +1,115 @@
+# 空白风格模板。复制本目录后改 id，并将 status 改为 draft。
+# 在必填项填完之前，不要把本文件当作出片风格。
+id: _blank-template
+version: "1.0.0"
+compatible_config_versions:
+  min: "1.0"
+  max_exclusive: "2.0"
+status: template
+summary: "复制后填写：用一两句话说明视觉与声音语言。"
+
+applies_to: []
+does_not_apply:
+  - 直接被项目选为出片风格
+
+layout_coordinate_space:
+  type: "frame-relative"
+  origin: "top-left"
+  x: "ratio-of-width"
+  y: "ratio-of-height"
+  notes: "所有窗口与标题位置使用 0 到 1 的相对坐标。"
+
+colors:
+  background: { rgb: null, fallback_rgb: null }
+  accent: { rgb: null, fallback_rgb: null }
+  white: { rgb: null, fallback_rgb: null }
+
+typography:
+  resolve_policy: "family-name-only"
+  family_stack: []
+  fallbacks: []
+  on_missing_preferred: "use-next-fallback-and-record-warning"
+  on_missing_all: "error"
+  subtitles:
+    color_ref: null
+    weight: "bold"
+    unit: "sentence"
+    soft_shadow: true
+    word_by_word_highlight: false
+  title:
+    lines: 2
+    color_split_refs: []
+    soft_shadow: true
+    max_width_ratio: 0.55
+    persistent: true
+    placement:
+      x_center_ratio: 0.5
+      top_ratio_starting_hint: null
+      y_policy: "below-device-and-platform-safe-area"
+      must_measure_on_target_devices: true
+      do_not_copy_legacy_flush_top: true
+
+safe_area:
+  modes:
+    - letterbox
+    - fill-crop
+  check:
+    - top-status-and-platform-bar
+    - right-interaction-column
+    - bottom-caption-and-gesture-area
+    - left-and-right-fill-crop
+  title_must_clear_top_chrome: true
+  keep_crown_visible: true
+  device_chrome_values_are_not_constants: true
+
+talking_head:
+  keep_crown: true
+  recompute_from_face_each_source: true
+  outline:
+    color_ref: null
+    corner: rounded
+    weight_ratio_of_min_side: null
+  layouts: {}
+  allow_micro_push_in: false
+  no_default_top_right_watermark: true
+  nameplate:
+    lines: []
+    avoid_face: true
+
+subtitles: { ref: typography.subtitles }
+
+cards:
+  types_available: []
+  placement_policy: "follow-content-plan"
+  no_fixed_interval_sec: true
+  must_not_cover_face_or_subtitles: true
+
+motion:
+  easing_start_sec_hint: null
+  motion_must_not_interrupt_information: true
+
+sfx:
+  policy: null
+  voice_led: true
+  force_on_every_card: false
+
+bgm:
+  source_policy: "licensed-or-original-instrumental-only"
+  lyrics: false
+  must_not_mask_voice: true
+  measure_level_during_speech: true
+  duck_under_speech: true
+  volume_percent_is_not_decibel: true
+
+ending:
+  style: null
+  duration_sec: null
+  no_reverse_or_looped_person: true
+
+assets:
+  - id: replace-me
+    type: procedural
+    bundled_file: null
+    license: null
+    source: "Describe copyright and origin before using this style."
+    usage: null
