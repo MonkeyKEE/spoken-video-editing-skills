@@ -1,0 +1,115 @@
+# 示例配置，复制后按项目填写。
+# 这里的数值只是可选起点，不是某一品牌的永久规范。
+# 不要写入真实姓名、职务、品牌名、账号，或本机/云盘绝对路径。
+
+project:
+  id: "project-001"
+  platform: "short-video"
+  language: "zh-CN"
+  confirmed_style: false
+  notes: "区分已确认规范、单次实现参数和待确认建议。"
+
+edit:
+  # 音画必须共用这一个值，并且各自只应用一次。
+  speed: 1.1
+  output:
+    aspect: "9:16"
+    width: 1440
+    height: 2560
+    fps: 30
+    cfr: true
+    pixel_format: "yuv420p"
+  encode:
+    video_codec: "h264"
+    profile: "high"
+    target_video_bitrate_mbps: 18
+    audio_codec: "aac"
+    audio_bitrate_kbps: 192
+    audio_sample_rate_hz: 48000
+    audio_channels: 2
+    faststart: true
+  loudness:
+    integrated_lufs: -16
+    measure_true_peak: true
+    leave_peak_headroom: true
+
+visual:
+  template: "black-neon-talking-head"
+  colors:
+    background_rgb: [10, 10, 10]
+    grid_rgb: [34, 34, 34]
+    accent_green_rgb: [30, 222, 6]
+    white_rgb: [255, 255, 255]
+  typography:
+    # 填写已获授权、可在当次环境中使用的字体名，不要写系统绝对路径。
+    family: "licensed-sans-cjk-bold"
+    subtitles:
+      color: "white"
+      weight: "bold"
+      unit: "sentence"
+      soft_shadow: true
+      word_by_word_highlight: false
+  title:
+    lines: 2
+    color_split: ["accent_green", "white"]
+    soft_shadow: true
+    max_width_ratio: 0.55
+    # 必须低于旧版贴顶位置，并按目标手机安全区实测，不能照搬旧坐标。
+    y_policy: "below-legacy-flush-top-and-phone-safe-area"
+    persistent: true
+  talking_head:
+    keep_crown: true
+    outline: "accent_green"
+    corner: "rounded"
+    layouts:
+      - large
+      - circle
+      - left
+      - small
+      - low
+      - fullscreen
+    allow_micro_push_in: false
+    no_default_top_right_watermark: true
+  nameplate:
+    # 仅在用户已确认文案后填写；未确认则保持空列表。
+    lines: []
+    avoid_face: true
+  motion:
+    keyword_cards: true
+    chapter_cards: true
+    process_or_topic_graphics: true
+    easing_start_sec: 0.4
+  ending:
+    style: "natural-hold-then-freeze-brand-fade"
+    # 按时长与尾音决定，不把某一秒数写成硬规则。
+    duration_sec: null
+    no_reverse_or_looped_person: true
+
+audio:
+  voice_led: true
+  sfx_policy: "sparse-quiet-key-moments-only"
+  force_sfx_on_every_card: false
+  music:
+    source_policy: "licensed-or-original-instrumental-only"
+    lyrics: false
+    must_not_mask_voice: true
+    # 「音量百分比」不能直接换算成分贝或响度目标。
+    measure_level_during_speech: true
+    duck_under_speech: true
+
+qa:
+  require_direct_video_review: true
+  review_points:
+    - head
+    - middle
+    - tail
+    - cuts
+    - lip-sync
+    - subtitles
+    - phone-safe-area-letterbox
+    - phone-safe-area-fill
+    - sfx-and-music
+    - ending
+  if_no_direct_review: "pending-preview-only"
+  never_claim_perfect_frame_accuracy: true
+  never_auto_publish: true
