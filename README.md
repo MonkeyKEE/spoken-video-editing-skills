@@ -1,50 +1,72 @@
 # Spoken Video Editing Skills
 
-口播剪辑与黑底荧光绿视觉包装的可复用流程模板。
+口播剪辑与可扩展视觉风格包的流程规范。
 
-本仓库说明如何把对镜头口播做成可交付成片，并按需套用一套可配置的视觉包装。它提供的是流程、质检要求和风格模板，**不附带可直接执行的渲染脚本**，也**不是一键剪辑工具**。风格预设可以按项目调整；统一变速、手机安全区和人声主导是必须遵守的质检边界。
+本仓库把**核心工作流**和**风格包**分开：先按统一时间映射完成剪辑与音画质检，再加载一个已注册的风格包做包装。它是文档与 YAML 规范，**不附带可直接执行的渲染脚本**，也**不是一键剪辑或一键渲染工具**。把仓库复制到其他电脑、交给其他智能体后，应能按同一套契约工作，并继续添加新风格。
+
+当前唯一已验证的样片风格是 `black-neon-talking-head`（近黑点阵底、荧光绿人物窗、句级白字幕）。它只是已验证样片，不是所有项目的默认风格。仓库同时提供空白风格模板，供后续追加风格；不要把空白模板直接当作成片风格，也不要杜撰第二个「已验证」风格。
 
 许可协议见 [LICENSE](LICENSE)（MIT，Copyright (c) 2026 MonkeyKEE）。
 
-## 包含内容
+完整配套包的发布地址：<https://github.com/MonkeyKEE/spoken-video-editing-skills>。
+
+## 目录
 
 | 路径 | 作用 |
 |---|---|
-| [skills/spoken-video-editing-qc/SKILL.md](skills/spoken-video-editing-qc/SKILL.md) | 口播剪辑与音画同步质检：从原片探测到交付，重点防止口型或字幕渐进错位 |
-| [skills/black-neon-talking-head/SKILL.md](skills/black-neon-talking-head/SKILL.md) | 黑底荧光绿口播视觉包装：人物窗、关键词/章节/流程动效、句级白字幕、手机安全区 |
-| [examples/style-profile.example.yaml](examples/style-profile.example.yaml) | 项目配置示例。只含占位与可选预设，不是某一品牌的永久规范 |
+| [skills/spoken-video-editing-qc/SKILL.md](skills/spoken-video-editing-qc/SKILL.md) | 核心工作流：探测、交叉转写、内容剪辑、统一变速与时间映射、终速字幕、混音、同步质检、交付 |
+| [skills/talking-head-style-packaging/SKILL.md](skills/talking-head-style-packaging/SKILL.md) | 核心工作流：在时间轴对齐后，按风格包做人物窗、字幕、卡片、动效与安全区包装 |
+| [skills/black-neon-talking-head/SKILL.md](skills/black-neon-talking-head/SKILL.md) | 兼容引导：旧路径仅指向新包装技能，不再包含旧的单风格逻辑 |
+| [styles/catalog.yaml](styles/catalog.yaml) | 风格注册清单 |
+| [styles/README.md](styles/README.md) | 如何新增风格 |
+| [styles/black-neon-talking-head/style.yaml](styles/black-neon-talking-head/style.yaml) | 唯一已验证样片风格 |
+| [styles/_blank-template/style.yaml](styles/_blank-template/style.yaml) | 空白风格模板，不可直接用于出片 |
+| [contracts/config-contract.yaml](contracts/config-contract.yaml) | 输入输出契约、合并优先级、必填项与报错规则 |
+| [config/optional-presets.yaml](config/optional-presets.yaml) | 可选起始预设（语速、画幅、编码、响度），不是硬规范 |
+| [examples/project.example.yaml](examples/project.example.yaml) | 项目配置示例 |
+| [docs/operations.md](docs/operations.md) | 安装配套目录、跨宿主与跨系统注意事项、能力检查、离线迁移与 QA 清单 |
+| [CHANGELOG.md](CHANGELOG.md) | 版本与迁移说明 |
 | [MANIFEST.md](MANIFEST.md) | 文件清单与校验说明 |
-| [CHECKSUMS.sha256](CHECKSUMS.sha256) | 内容文件的 SHA256 |
+| [CHECKSUMS.sha256](CHECKSUMS.sha256) | 内容文件 SHA256 |
 
 ## 使用顺序
 
-1. 先执行 `spoken-video-editing-qc`：探测源旋转、VFR 与音轨 PTS；交叉转写；在能量低点做内容裁切；用同一份 `segments` / `frame_map` 和同一个 `SPEED`，音画各变速一次；在终速干声上重转写字幕；需要包装时再按流程做分块图形合成；检查 LUFS、真峰值、源帧映射和有效内容同步；直接视听片头、片中、片尾的口型、字幕和安全区；然后交付，不自动发布。
-2. 仅在时间轴已经对齐后，再执行 `black-neon-talking-head`。不要用包装去掩盖音画错位。
-3. 每个项目复制一份 `examples/style-profile.example.yaml`，只填入当次已确认的信息。示例中的 `1.1`×、`9:16` / `1440×2560` / `30fps` CFR、约 `18Mbps`、AAC `192k`/`48kHz`、faststart、约 `−16LUFS` 都是可选起始预设，不是所有品牌的硬规范。
+1. 复制本仓库到目标电脑，或把完整目录提供给智能体。不要只复制一份 `SKILL.md` 却丢掉 `styles/`、`contracts/`。
+2. 先复制 [examples/project.example.yaml](examples/project.example.yaml) 为当次项目配置，填写项目 ID、所选风格 ID、单一 `SPEED` 和输出预设。媒体定位符只放在本机不共享的本地配置里，不要写进风格包或共享项目文件。
+3. 执行 `spoken-video-editing-qc`，产出内容剪辑计划、统一 `segments` / `frame_map`、终速干声和逐句字幕。
+4. 时间轴对齐后，再执行 `talking-head-style-packaging`。包装必须依据内容计划，而不是按风格固定弹卡频率。
+5. 完成直接视听审片后再交付；未经授权不自动发布。
 
-把 `skills/` 下两个目录按你使用的技能仓库或代理技能目录原样放入，保留各自的 `SKILL.md`。执行时先读取技能正文，再读取当次项目的风格配置，不要把示例配置里的占位值写进共享技能正文。实现渲染、转写和合成时，需自行准备或复用项目已有脚本，并对照本仓库的流程与质检要求执行。
+## 配置合并与安全底线
 
-## 依赖
+合并顺序（后者覆盖前者，但不能削弱安全底线）：
 
-- **ffmpeg / ffprobe**：源探测、裁切、变速、分块合成、封装，以及时长、帧率和基础音视频测量。
-- **Python**：逐帧图形合成、时间映射与校验。本仓库不附带这些脚本，需按流程自行实现或沿用项目里已验证的版本。
-- **faster-whisper**：交叉转写，以及在终速干净人声上重新转写字幕。模型与版本由项目自选。
-- **审片**：`watchVideo`、`videoReview` 是部分宿主环境提供的看片/审片能力，**不是本仓库附带或必须安装的公开命令行工具**。若当前环境没有这些能力，必须用可播放的成片或音画同步代理，做等价的人工视听审片；不得跳过，也不得在未看未听时声称已经审过。
+1. [config/optional-presets.yaml](config/optional-presets.yaml) 中的可选起始预设
+2. 所选风格包 `styles/<id>/style.yaml`
+3. 项目配置中的覆盖项
 
-没有完成直接视听审片时，只能交付并标明「待审预览」和未完成项，不能当作审片通过的母带。静帧、探测数据和转写时间戳都不能代替这一步。
+同步、隐私、直接视听验收和「不自动发布」是锁定规则，风格包和项目覆盖都不能关闭。完整规则见 [contracts/config-contract.yaml](contracts/config-contract.yaml)。语速、画幅、码率和响度都是可配置预设，例如 `1.1`× 或 `9:16` / `1440×2560` / `30fps` 只是可选起点，不是永久硬要求。
 
-## 关键约定
+## 旧路径兼容
 
-- 音画必须共用一个 `SPEED`，并且各自只应用一次；禁止视频一套、音频滤镜另写死不同 `atempo`。
-- 标题必须比旧版贴顶位置整体下移，并用目标手机的留边与铺满两种模式检查安全区。
-- 视觉语言为近黑点阵底、荧光绿描边人物窗（完整保留头顶、多种布局）、关键词/章节/流程动效、句级白色粗字幕；人声主导，音效稀疏且轻，结尾自然停顿后静帧淡出。这些是可配置的风格预设，但仍须满足统一变速、安全区和人声主导。
-- 取材优先走安全传输或官方连接器，不要把公开云盘链接写成必要步骤。
-- 未经授权不上传、不改分享、不自动发布。
-- 历史故障教训：视频 `1.1`×、音频误用 `1.2`× 会造成口型越到后面越提前；用静音 padding 把容器时长撑齐会掩盖问题。必须检查有效内容时长，并直接视听复核。
+若更新仓库时仍看到 `skills/black-neon-talking-head/SKILL.md`，那是为了覆盖旧版同名文件而保留的兼容引导，不是第二套包装技能。遇到该路径时，改用 `skills/talking-head-style-packaging/SKILL.md`，并从包根读取 `styles/black-neon-talking-head/style.yaml`。不要同时执行两套逻辑。
+
+## 安装时要复制什么
+
+推荐：整仓复制，再按宿主注册两个技能。最低配套如下。
+
+| 目的 | 必须一起提供 |
+|---|---|
+| 只做剪辑与同步质检 | `skills/spoken-video-editing-qc/`、`contracts/`、`config/`、`examples/`、`docs/operations.md` |
+| 做视觉包装 | 上一行全部，外加 `skills/talking-head-style-packaging/` 与整个 `styles/` |
+| 以后还要加风格 | 整个仓库，尤其是 `styles/` 与 `styles/README.md` |
+
+支持两类智能体：能读取通用 `SKILL.md` 的宿主，以及只能接收聊天提示词的智能体。后一类要把技能正文、契约、所选风格包和项目示例一并提供。路径、字体与 ffmpeg 的系统差异见 [docs/operations.md](docs/operations.md)。
 
 ## 能力边界
 
-- 本仓库不是成片生成器，也不保证按模板操作后一定得到可发布结果。
-- 不得把一次项目的坐标、电平、字体替代或导出码率，写成所有品牌的强制规范。
+- 不保证按规范操作后一定得到可发布成片，也不提供一键渲染。
+- 不得把一次样片的坐标、电平、字体替代或导出参数，写成所有品牌、所有系统的强制规范。
 - 图库、生成图或示意动画不能冒充真实现场记录。
-- 许可证按「原样」提供，不附带适销性或特定用途的保证，详见 [LICENSE](LICENSE)。
+- `watchVideo` / `videoReview` 只是部分宿主的看片能力，不是公开命令行工具；没有它们时必须做等价人工视听审片，不得跳过或声称已看。
+- 许可证按「原样」提供，详见 [LICENSE](LICENSE)。
