@@ -2,7 +2,7 @@
 name: wenceafeng-koubocut
 description: 文策阿峰IP专用竖屏口播剪辑。用户说“做文策阿峰”“剪文策阿峰”“剪阿峰口播”或指定本技能时调用；通过已有ChatCut插件精剪、音画同步质检和黑底荧光绿人物窗包装，禁止混入青年磁场MC Logo。不是青年磁场MC横屏技能；MC任务改用qingnian-cichang-koubocut。
 metadata:
-  version: "2.2.0"
+  version: "2.3.0"
   language: zh-CN
   brand: wenceafeng
 ---
@@ -10,6 +10,8 @@ metadata:
 # 文策阿峰IP · 竖屏口播剪辑
 
 本技能根据用户指定的 GitHub 仓库完整规范部署，是文策阿峰的独立入口。2026-11-17用户已明确区分品牌：**文策阿峰竖屏、不带青年磁场MC Logo；青年磁场横屏、带MC Logo。** 原来误放在本名称下的MC流程已迁移到 `qingnian-cichang-koubocut`，不要沿用历史会话里旧版本的MC默认值。
+
+**首次使用或换电脑：**先读[环境与迁移指南](references/environment.md)，核对依赖、试导小样，再启动完整剪辑。
 
 ## 先确定品牌，再调用插件
 

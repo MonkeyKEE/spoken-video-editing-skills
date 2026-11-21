@@ -1,0 +1,54 @@
+{
+  "assets": {
+    "source_media": {
+      "required": true,
+      "path": null,
+      "sha256": null
+    },
+    "approved_reference": {
+      "required": true,
+      "path": null,
+      "sha256": null
+    },
+    "caption_font": {
+      "required": true,
+      "path": null,
+      "sha256": null
+    },
+    "brand_manual": {
+      "required": true,
+      "path": null,
+      "sha256": null
+    },
+    "horizontal_logo": {
+      "required": true,
+      "path": null,
+      "sha256": null
+    },
+    "approved_music": {
+      "required": true,
+      "path": null,
+      "sha256": null
+    },
+    "editable_project_archive": {
+      "required": false,
+      "path": null,
+      "sha256": null
+    },
+    "subtitle_or_transcript": {
+      "required": false,
+      "path": null,
+      "sha256": null
+    },
+    "authorized_broll": {
+      "required": false,
+      "path": null,
+      "sha256": null
+    },
+    "mg_source_archive": {
+      "required": false,
+      "path": null,
+      "sha256": null
+    }
+  }
+}

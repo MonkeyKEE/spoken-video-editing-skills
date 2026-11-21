@@ -2,13 +2,15 @@
 name: qingnian-cichang-koubocut
 description: 青年磁场MC专用横屏口播剪辑。用户说“做青年磁场”“剪青年磁场MC”“MC口播”或指定本技能时调用；通过已有ChatCut插件精剪、带真实MC Logo的品牌包装、不重复B-roll、圆形人物、语义MG和低音量配乐。不是文策阿峰竖屏技能；阿峰任务改用wenceafeng-koubocut。
 metadata:
-  version: "1.3.0"
+  version: "1.4.0"
   language: zh-CN
 ---
 
 # 青年磁场MC · 横屏口播剪辑
 
 把口播做成清楚、紧凑、有品牌识别、观点随讲述推进的可编辑成片。此技能来自已经完成并获用户认可的制作方法，保存的是决策与验收流程，不是冻结的工具调用脚本。
+
+**首次使用或换电脑：**先读[环境与迁移指南](references/environment.md)，核对依赖、试导小样，再启动完整剪辑。
 
 ## 品牌入口与插件路线
 
