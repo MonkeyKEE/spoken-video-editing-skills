@@ -1,0 +1,151 @@
+# 配置契约：输入输出、合并优先级、必填项与报错。
+# 这是规范文档，不是渲染器。修改规则后应同步更新技能正文与 examples。
+contract_version: "1.0"
+config_schema_version: "1.0"
+
+merge:
+  description: >
+    后者覆盖前者的同名配置。锁定规则在合并后检查，冲突则报错，不能被覆盖为更弱的值。
+  order:
+    - optional_presets
+    - style_pack
+    - project_overrides
+  locked_after_merge: safety_baseline
+
+safety_baseline:
+  description: 风格包与项目覆盖都不能削弱这些规则。
+  rules:
+    - key: qa.require_direct_video_review
+      required_value: true
+    - key: qa.if_no_direct_review
+      required_value: "pending-preview-only"
+    - key: qa.never_auto_publish
+      required_value: true
+    - key: qa.never_claim_perfect_frame_accuracy
+      required_value: true
+    - key: qa.never_claim_watched_without_review
+      required_value: true
+    - key: sync.single_speed_required
+      required_value: true
+    - key: sync.forbid_padding_to_mask_desync
+      required_value: true
+    - key: sync.retranscribe_on_final_dry_voice
+      required_value: true
+    - key: packaging.content_plan_has_priority
+      required_value: true
+    - key: packaging.no_fixed_card_frequency_requirement
+      required_value: true
+    - key: privacy.no_absolute_or_private_paths_in_shared_files
+      required_value: true
+
+required_project_fields:
+  - config_schema_version
+  - project.id
+  - style.id
+  - edit.speed
+  - edit.output.width
+  - edit.output.height
+  - edit.output.fps
+  - qa.require_direct_video_review
+
+required_style_fields:
+  - id
+  - version
+  - compatible_config_versions
+  - status
+  - applies_to
+  - does_not_apply
+  - colors
+  - typography.family_stack
+  - typography.fallbacks
+  - layout_coordinate_space
+  - safe_area
+  - subtitles
+  - talking_head
+  - cards
+  - motion
+  - sfx
+  - bgm
+  - ending
+  - assets
+
+allowed_style_status:
+  - template
+  - draft
+  - confirmed
+  - verified-sample
+
+style_status_rules:
+  template: 不可被项目选为出片风格。只能复制后改 id 再使用。
+  draft: 可以使用，但交付时必须标明风格尚未验证。
+  confirmed: 表示某使用方已确认采用，不自动等于本仓库的已验证样片。
+  verified-sample: 仅用于仓库中有已验证样片依据的风格。当前只应有 black-neon-talking-head。
+
+io:
+  qc_skill:
+    inputs:
+      - project_config
+      - optional_presets
+      - source_media_via_local_locator
+    outputs:
+      - probe_report
+      - content_plan
+      - segments
+      - frame_map
+      - dry_voice_source_speed
+      - dry_voice_final_speed
+      - base_video_unpacked
+      - sentence_subtitles_final_timeline
+      - qa_notes
+  packaging_skill:
+    inputs:
+      - all_qc_outputs
+      - project_config
+      - style_pack
+      - optional_presets
+    outputs:
+      - resolved_config_snapshot
+      - scene_table
+      - packaged_master_or_preview
+      - qa_notes
+      - review_status
+  review_status_values:
+    - passed
+    - pending-preview
+  notes:
+    - 内容剪辑计划是包装的前置输入，包装不得另写一套与之冲突的时间轴。
+    - 共享文件只使用相对仓库根目录的路径，分隔符为 /。
+    - 本机媒体路径只出现在不共享的本地定位文件中，不写入风格包。
+
+errors:
+  - code: MISSING_REQUIRED_FIELD
+    when: 项目或风格缺少必填项
+  - code: UNKNOWN_STYLE_ID
+    when: style.id 未在 styles/catalog.yaml 注册，或注册路径不存在
+  - code: TEMPLATE_STYLE_SELECTED
+    when: 项目选择了 status 为 template 的风格，或 id 为 _blank-template
+  - code: INCOMPATIBLE_SCHEMA
+    when: 项目 config_schema_version 与风格 compatible_config_versions 不交集
+  - code: LOCKED_KEY_VIOLATION
+    when: 风格或项目覆盖试图削弱 safety_baseline
+  - code: MULTIPLE_SPEED_VALUES
+    when: 出现一个以上有效 SPEED，或音画准备使用不同语速
+  - code: ABSOLUTE_OR_PRIVATE_PATH
+    when: 共享配置中出现绝对路径、盘符路径或明显的本机用户目录
+  - code: FONT_PATH_NOT_FAMILY
+    when: typography 使用字体文件路径而不是字体族名称
+  - code: LAYOUT_NOT_RELATIVE
+    when: 布局使用绝对像素且未提供相对画幅比例
+  - code: FIXED_CARD_FREQUENCY
+    when: 风格把固定弹卡间隔写成必须执行的包装规则
+  - code: UNVERIFIED_STYLE_AS_VERIFIED
+    when: 把 draft 或 confirmed 风格宣传为仓库已验证样片
+  - code: MISSING_CONTENT_PLAN
+    when: 进入包装时没有内容剪辑计划
+  - code: REVIEW_SKIPPED
+    when: 未做直接视听审片却把状态写成 passed，或声称已看
+
+on_error:
+  action: 停止出片交付
+  deliver: 指出错误代码、字段路径和如何修正
+  do_not: 用默认值悄悄补上锁定规则所禁止的项，或继续当作审片通过

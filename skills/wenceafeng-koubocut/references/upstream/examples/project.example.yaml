@@ -1,0 +1,73 @@
+# 项目配置示例。复制后按当次项目填写。
+# 不要写入真实姓名、职务、品牌名、账号，或本机/云盘绝对路径。
+# 媒体文件的本机位置放到不共享的本地定位文件，不要写进本文件或风格包。
+
+config_schema_version: "1.0"
+
+project:
+  id: "project-001"
+  platform: "short-video"
+  language: "zh-CN"
+  notes: "区分已确认规范、单次实现参数和待确认建议。"
+
+style:
+  # 示例选用当前唯一已验证样片风格。可以改成你注册的其他 draft/confirmed 风格，
+  # 但不能选择 _blank-template，也不能把未验证风格写成 verified-sample。
+  id: "black-neon-talking-head"
+  version: "1.0.0"
+  confirmed_for_this_project: false
+  overrides: {}
+  # overrides 只能覆盖风格中的可配置视觉/声音参数，不能削弱 contracts 中的安全底线。
+
+edit:
+  # 音画必须共用这一个值，并且各自只应用一次。
+  speed: 1.1
+  output:
+    aspect: "9:16"
+    width: 1440
+    height: 2560
+    fps: 30
+    cfr: true
+    pixel_format: "yuv420p"
+  encode:
+    video_codec: "h264"
+    profile: "high"
+    target_video_bitrate_mbps: 18
+    audio_codec: "aac"
+    audio_bitrate_kbps: 192
+    audio_sample_rate_hz: 48000
+    audio_channels: 2
+    faststart: true
+  loudness:
+    integrated_lufs: -16
+    measure_true_peak: true
+    leave_peak_headroom: true
+
+sources:
+  - id: "src-01"
+    role: "canonical-talking-head"
+    locator: "local-media://src-01"
+
+content_plan:
+  status: "to-be-filled-after-qc"
+  segments: []
+  cards: []
+  notes: "由口播剪辑技能根据内容填写。包装必须依据本计划，不能按固定弹卡频率自动铺卡。"
+
+qa:
+  require_direct_video_review: true
+  if_no_direct_review: "pending-preview-only"
+  never_auto_publish: true
+  never_claim_perfect_frame_accuracy: true
+  never_claim_watched_without_review: true
+  review_points:
+    - head
+    - middle
+    - tail
+    - cuts
+    - lip-sync
+    - subtitles
+    - phone-safe-area-letterbox
+    - phone-safe-area-fill
+    - sfx-and-music
+    - ending

@@ -2,6 +2,12 @@
 
 当前配置模式版本为 `config_schema_version: "1.0"`。风格包使用自己的 `version`（SemVer），并用 `compatible_config_versions` 声明可兼容的配置模式范围。
 
+## 2026-11-21：同步品牌工作流
+
+- 文策阿峰 v2.2.0：真人开口、无标点字幕、语义动效和 B-roll 验收。
+- 青年磁场 MC v1.3.0：定稿对照、首秒口播、字幕净尾、默认配乐和独立品牌片尾。
+- 保留通用技能、风格注册表和配置契约。
+
 ## 1.0.1（发布前兼容补充）
 
 - 增加 `skills/black-neon-talking-head/SKILL.md` 作为兼容引导，用于覆盖旧仓库中的同名文件，避免网页更新后残留旧技能与新的多风格流程并存。该文件只指向 `skills/talking-head-style-packaging/SKILL.md`，不再包含旧包装逻辑。

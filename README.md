@@ -29,6 +29,13 @@
 | [MANIFEST.md](MANIFEST.md) | 文件清单与校验说明 |
 | [CHECKSUMS.sha256](CHECKSUMS.sha256) | 内容文件 SHA256 |
 
+## 品牌工作流技能
+
+- [文策阿峰 · 竖屏口播 v2.2.0](skills/wenceafeng-koubocut/SKILL.md)
+- [青年磁场 MC · 横屏口播 v1.3.0](skills/qingnian-cichang-koubocut/SKILL.md)
+
+两套入口均需随附各自目录下的文档和引用文件，不修改通用技能或风格注册表。品牌素材、原片与配乐需自行提供。
+
 ## 使用顺序
 
 1. 复制本仓库到目标电脑，或把完整目录提供给智能体。不要只复制一份 `SKILL.md` 却丢掉 `styles/`、`contracts/`。

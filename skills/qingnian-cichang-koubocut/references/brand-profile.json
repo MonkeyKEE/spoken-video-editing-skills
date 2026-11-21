@@ -1,0 +1,22 @@
+{
+  "brand": "青年磁场MC",
+  "aliases": [
+    "青年磁场",
+    "青年磁场MC",
+    "MC口播"
+  ],
+  "orientation": "landscape",
+  "startingAspect": "16:9",
+  "mcLogo": "required-approved-asset",
+  "style": "approved-mc-navy-neon",
+  "otherBrandSkill": "wenceafeng-koubocut",
+  "speedDefault": 1.1,
+  "schemaVersion": 1,
+  "skill": "qingnian-cichang-koubocut",
+  "runtime": "ChatCut Desktop existing plugin",
+  "resolutionDefault": null,
+  "fpsDefault": null,
+  "explicitPerTaskOverrideAllowed": true,
+  "brandConfirmedOn": "2026-11-17",
+  "noVideoReviewClaimFromDeployment": true
+}

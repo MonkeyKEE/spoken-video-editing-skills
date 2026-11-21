@@ -1,0 +1,31 @@
+# 可选起始预设。复制到项目后仍可全部改写。
+# 这些值不是所有品牌、所有平台或所有系统的硬规范。
+preset_id: optional-starting-presets
+config_schema_version: "1.0"
+status: optional
+notes:
+  - 项目必须显式写出自己的 edit.speed 与输出画幅，即使采用下列数值。
+  - 风格包不应依赖本文件才能成立。
+
+edit:
+  speed: 1.1
+  output:
+    aspect: "9:16"
+    width: 1440
+    height: 2560
+    fps: 30
+    cfr: true
+    pixel_format: "yuv420p"
+  encode:
+    video_codec: "h264"
+    profile: "high"
+    target_video_bitrate_mbps: 18
+    audio_codec: "aac"
+    audio_bitrate_kbps: 192
+    audio_sample_rate_hz: 48000
+    audio_channels: 2
+    faststart: true
+  loudness:
+    integrated_lufs: -16
+    measure_true_peak: true
+    leave_peak_headroom: true

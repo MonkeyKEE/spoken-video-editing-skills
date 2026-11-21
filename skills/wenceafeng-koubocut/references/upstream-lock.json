@@ -1,0 +1,27 @@
+{
+  "repository": "https://github.com/MonkeyKEE/spoken-video-editing-skills",
+  "commit": "cb69c7dd5f155ed727a2144114d1f4bfe4ffc5af",
+  "fileCount": 17,
+  "sha256": {
+    "CHANGELOG.md": "502c4eb3ad29e638201eb79e3ad5de307c7475c705ff100911b8ac73b23012cb",
+    "CHECKSUMS.sha256": "818f11a2d123ccbd6fa6ba46243536cc6e0f8e100a743865fbe4960191d084d6",
+    "LICENSE": "da7e38e357d8959051987ce494187ceb253524f963b1565bbe841396f1f38e54",
+    "MANIFEST.md": "b9f5021c460ccab1b8bc91b488eccefec3c78c6f0a989d9bfb32ef4ab91fa27e",
+    "README.md": "a66310d09bb05f3c2909de881af008183d5c0a67b1083dad77e1c2ebbba59351",
+    "config/optional-presets.yaml": "4b5dfd665ba80a20a26e5a3c871b9d85a91336173b7744d85a7eae5526b3815a",
+    "contracts/config-contract.yaml": "52dbed80a080a9dc5d8a2dc81160d84c831d869c0838447077bd8404e178179b",
+    "docs/operations.md": "f39377c493b9ac3fd4df3354b21fdf6bbb840b981b80b83ec2589d8aafaa3371",
+    "examples/project.example.yaml": "46bac553d643c9e9eac857620cdfb58d0617559e7baf769569648e568eb2a3de",
+    "examples/style-profile.example.yaml": "a27ecf83d1f4e55537f9903244bb97483e2779e11e4f69756672a621666b5817",
+    "skills/black-neon-talking-head/SKILL.md": "2d152977b0c8d03d722dd31061a098938928eb8a3d01c08442a31474c42afa9c",
+    "skills/spoken-video-editing-qc/SKILL.md": "4e84326db6962bdd43267d6dc8122e80139229284b93335b2882af1add3ab094",
+    "skills/talking-head-style-packaging/SKILL.md": "b8daa7be34e9490718466f73a0a701451a03cc090f77cd6e4346c6321eb58cc6",
+    "styles/README.md": "a00b01d58cfea71672b1e10a5517baa88e528957f9b2096c900be1cbd41d8d7f",
+    "styles/_blank-template/style.yaml": "ab9cd9b59e2eccd49ff9552e3a8fc60fe729873f1563ba407f9cc1604532f4ca",
+    "styles/black-neon-talking-head/style.yaml": "098052c261833e3e08051388e56d602976a8b1f1b2f7e462ba8715fcd55443f2",
+    "styles/catalog.yaml": "054287903c2f451982bcbead643f8c365b581ef95a1a0541921f2f9ed2b0d126"
+  },
+  "archiveUrl": "https://codeload.github.com/MonkeyKEE/spoken-video-editing-skills/zip/cb69c7dd5f155ed727a2144114d1f4bfe4ffc5af",
+  "archiveSha256": "a1cd12b9639b1cad66c347b3faa5d916702fc8eccd533ca769f847b5adf1208c",
+  "upstreamChecksums": "passed"
+}

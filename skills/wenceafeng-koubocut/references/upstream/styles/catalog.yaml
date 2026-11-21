@@ -1,0 +1,18 @@
+# 风格注册清单。新增风格必须先在此登记，才能被项目选择。
+catalog_version: "1.0"
+config_schema_version: "1.0"
+notes:
+  - 当前唯一 verified-sample 是 black-neon-talking-head。
+  - _blank-template 只用于复制，不能被项目直接选择。
+
+styles:
+  - id: black-neon-talking-head
+    version: "1.0.0"
+    status: verified-sample
+    path: black-neon-talking-head/style.yaml
+    summary: 近黑点阵底、荧光绿描边人物窗与句级白字幕。唯一已验证样片风格，不是所有项目的默认风格。
+  - id: _blank-template
+    version: "1.0.0"
+    status: template
+    path: _blank-template/style.yaml
+    summary: 新增风格时复制本目录并改 id。不可直接当作成片风格使用。

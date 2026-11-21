@@ -23,6 +23,8 @@
 - `skills/talking-head-style-packaging/SKILL.md` — 口播视觉包装（多风格）
 - `skills/black-neon-talking-head/SKILL.md` — 旧路径兼容引导，仅指向新包装技能，不含旧逻辑
 - `docs/operations.md` — 安装、跨宿主与跨系统注意事项、离线迁移与 QA 清单
+- `skills/wenceafeng-koubocut/` — 文策阿峰竖屏工作流、验收规则及保留许可的上游快照
+- `skills/qingnian-cichang-koubocut/` — 青年磁场 MC 横屏工作流、品牌及验收规则
 - `MANIFEST.md` — 本文件
 - `CHECKSUMS.sha256` — 内容文件校验和（在本清单之后生成，不含压缩包）
 
@@ -33,7 +35,7 @@
 - 所有 YAML 可被解析。
 - 风格注册清单与目录、`id` / `version` / `status` 一致；`verified-sample` 仅有 `black-neon-talking-head`；项目示例未选择模板风格。
 - 项目示例包含契约中的必填项，且未削弱安全底线。
-- Frontmatter：三份 `SKILL.md` 均含且仅含 `name`、`description`；`name` 为英文 kebab；`description` 为中文触发说明。兼容引导技能不含包装流程。
+- Frontmatter：三份通用技能含且仅含 `name`、`description`；品牌入口另含 `metadata` 记录版本。兼容引导不含包装流程。
 - 本地相对链接可解析。
 - `LICENSE` 为标准 MIT 文本，版权行为 `Copyright (c) 2026 MonkeyKEE`。
 - 敏感内容扫描：正文不含私人姓名、职务、本机或云盘绝对路径、真实视频文件名、令牌或账号。

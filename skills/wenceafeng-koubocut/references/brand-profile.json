@@ -1,0 +1,22 @@
+{
+  "brand": "文策阿峰",
+  "aliases": [
+    "文策阿峰",
+    "文策阿峰IP",
+    "阿峰口播"
+  ],
+  "orientation": "portrait",
+  "startingAspect": "9:16",
+  "mcLogo": "forbidden",
+  "style": "black-neon-talking-head",
+  "otherBrandSkill": "qingnian-cichang-koubocut",
+  "speedDefault": null,
+  "schemaVersion": 1,
+  "skill": "wenceafeng-koubocut",
+  "runtime": "ChatCut Desktop existing plugin",
+  "resolutionDefault": null,
+  "fpsDefault": null,
+  "explicitPerTaskOverrideAllowed": true,
+  "brandConfirmedOn": "2026-11-17",
+  "noVideoReviewClaimFromDeployment": true
+}
